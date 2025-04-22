@@ -2,15 +2,15 @@
 
 Sample project with 3 test projects with the same `NUnit` in `net48`.
 
-## TestAdapterProblemProject
+### TestAdapterProblemProject
 
 Project with the `NUnit` `TestAdapter`.
 
-## TestProjectNoAdapter
+### TestProjectNoAdapter
 
 Project with without `TestAdapter`.
 
-## TestProjectRevitAdapter
+### TestProjectRevitAdapter
 
 Project with `RevitTest` `TestAdapter`.
 
@@ -23,5 +23,7 @@ When build the solution, the `TestAdapter` trigger for all the projects.
 This duplicate the tests in the `Test Explorer` because the solution have two projects with two different `TestAdapter`.
 
 The project without any `TestAdapter` is triggered as well and shows in the `Test Explorer`.
+
+**The duplication tests only happens in net framework**
 
 ---
