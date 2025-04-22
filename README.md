@@ -16,5 +16,10 @@ Project with `RevitTest` `TestAdapter`.
 
 ## Problem
 
+When build the solution, the `TestAdapter` trigger for all the projects.
+
+![Image](https://github.com/user-attachments/assets/c3b28817-02f5-4c1e-9650-eccab960faab)
+
+This duplicate the tests in the `Test Explorer` because the solution have two different `TestAdapter`.
 
 ---
