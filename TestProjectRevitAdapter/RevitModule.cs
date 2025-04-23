@@ -3,6 +3,6 @@ using Autodesk.Revit.Attributes;
 
 [Journaling(JournalingMode.NoCommandData)]
 class RevitModule {
-    // Class with 'Journaling' revit reference to prevent 'NUnit3TestAdapter' to discovery tests.
+    // Class with 'Journaling' Revit reference to prevent 'NUnit3TestAdapter' to discovery tests.
 }
 #endif

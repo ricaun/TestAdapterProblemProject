@@ -26,4 +26,50 @@ The project without any `TestAdapter` is triggered as well and shows in the `Tes
 
 **The duplication tests only happens in net framework**
 
+## Workaround
+
+The workaround is force the `TestAdapter` to fail to discovery the tests.
+
+### `TestAdapterProblemProject` & `TestProjectNoAdapter`
+
+To force `RevitTest` to fail to discovery the tests add the code throw an exception when the assembly is loaded.
+
+**Module.cs**
+```C#
+#if NETFRAMEWORK
+using System;
+using System.Linq;
+using System.Runtime.CompilerServices;
+class Module
+{
+    [ModuleInitializer]
+    internal static void Initialize()
+    {
+        if (AppDomain.CurrentDomain.GetAssemblies().Any(e => e.GetName().Name.Contains("RevitTest")))
+            throw new NotSupportedException("This module should not be used by RevitTest.");
+    }
+}
+namespace System.Runtime.CompilerServices
+{
+    [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
+    internal sealed class ModuleInitializerAttribute : Attribute { }
+}
+#endif
+```
+
+**RevitModule.cs**
+
+To force `NUnit3TestAdapter` to fail to discovery the tests add the code with a `Journaling` attribute or any other Revit API reference.
+
+```C#
+#if NETFRAMEWORK
+using Autodesk.Revit.Attributes;
+
+[Journaling(JournalingMode.NoCommandData)]
+class RevitModule {
+    // Class with 'Journaling' Revit reference to prevent 'NUnit3TestAdapter' to discovery tests.
+}
+#endif
+```
+
 ---
