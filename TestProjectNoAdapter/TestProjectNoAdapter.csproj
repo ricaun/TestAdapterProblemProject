@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>net48</TargetFrameworks>
     <IsTestProject>true</IsTestProject>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
