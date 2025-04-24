@@ -34,27 +34,33 @@ The workaround is force the `TestAdapter` to fail to discovery the tests.
 
 To force `RevitTest` to fail to discovery the tests add the code throw an exception when the assembly is loaded.
 
-**Module.cs**
+**TestFixtureNoRevitAttribute.cs**
 ```C#
 #if NETFRAMEWORK
+using NUnit.Framework;
 using System;
 using System.Linq;
-using System.Runtime.CompilerServices;
-class Module
+
+[TestFixtureNoRevit]
+public class DummyTestToIgnoreRevitTest
 {
-    [ModuleInitializer]
-    internal static void Initialize()
+    [Test]
+    public void Test()
+    {
+        Assert.Pass();
+    }
+}
+
+public class TestFixtureNoRevitAttribute : TestFixtureAttribute
+{
+    public TestFixtureNoRevitAttribute() : base()
     {
         if (AppDomain.CurrentDomain.GetAssemblies().Any(e => e.GetName().Name.Contains("RevitTest")))
             throw new NotSupportedException("This module should not be used by RevitTest.");
     }
 }
-namespace System.Runtime.CompilerServices
-{
-    [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
-    internal sealed class ModuleInitializerAttribute : Attribute { }
-}
 #endif
+
 ```
 
 **RevitModule.cs**
