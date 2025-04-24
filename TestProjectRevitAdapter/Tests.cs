@@ -8,7 +8,9 @@ namespace TestProjectRevitAdapter
     {
         public static IEnumerable<string> SourceProcess()
         {
-            yield return Process.GetCurrentProcess().ProcessName;
+            var processName = Process.GetCurrentProcess().ProcessName;
+            if (processName.Contains("Revit")) processName = "Revit";
+            yield return processName;
         }
         [TestCaseSource(nameof(SourceProcess))]
         public void TestProcessName(string name)
